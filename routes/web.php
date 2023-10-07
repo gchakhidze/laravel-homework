@@ -42,6 +42,6 @@ Route::post('/message', function () {
         'message' => "updated successfully"
     ];
 
-    response() -> json($array);
+    return response() -> json($array);
 });
 
