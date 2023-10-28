@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\QuizController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,3 +46,4 @@ Route::post('/message', function () {
     return response() -> json($array);
 });
 
+Route::resource('quizzes', QuizController::class);
