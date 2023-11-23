@@ -21,16 +21,16 @@
                 </div>
                 <div>
                     <div>
-                        <strong>Assignee:</strong>
-                        <input type="text" name="assignee" value="{{ $quiz->assignee }}"
-                            placeholder="quiz assignee">
+                        <strong>Image:</strong>
+                        <input type="text" name="image" value="{{ $quiz->image }}"
+                            placeholder="quiz image">
                     </div>
                 </div>
                 <div>
                     <div>
-                        <strong>Score:</strong>
-                        <input type="text" name="score" value="{{ $quiz->score }}"
-                            placeholder="quiz score">
+                        <strong>Status:</strong>
+                        <input type="text" name="status" value="{{ $quiz->status }}"
+                            placeholder="quiz status">
                     </div>
                 </div>
                 <button type="submit">Update</button>
