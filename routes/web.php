@@ -14,36 +14,13 @@ use App\Http\Controllers\QuizController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/testmiddleware/on', function () {
+    return 'my-super-middleware is on';
+})->middleware('mysupermiddleware');
 
-Route::get('/firstname', function () {
-    return 'giorgi';
-});
-
-Route::get('/lastname', function () {
-    return 'chakhidze';
-});
-
-Route::get('/age', function () {
-    return '23';
-});
-
-Route::get('/hobby', function () {
-    return 'gaming';
-});
-
-Route::get('/language', function () {
-    return 'php';
-});
-
-Route::post('/message', function () {
-    $array = [
-        'message' => "updated successfully"
-    ];
-
-    return response() -> json($array);
+Route::get('/testmiddleware/off', function () {
+    return 'my-super-middleware is off';
 });
 
 Route::resource('quizzes', QuizController::class);
+
