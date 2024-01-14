@@ -20,8 +20,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('/quizzes', QuizController::class);
-Route::resource('/questions', QuestionController::class);
+Route::resource('/quizzes', QuizController::class)->middleware(['auth', 'verified']);
+Route::resource('/questions', QuestionController::class)->middleware(['auth', 'verified']);
 
 Route::patch('/quizzes/{quiz}/togglePublish', [QuizController::class, 'togglePublish'])->name('quizzes.togglePublish');
 

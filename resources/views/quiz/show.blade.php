@@ -9,13 +9,16 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
-                    <p>{{ $quiz->description }}</p>
+                    <p class="border rounded-lg p-4">{{ $quiz->description }}</p>
 
-                    <button id="startQuiz" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Start Quiz</button>
+                    <button id="startQuiz" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-4">Start Quiz</button>
 
                     @foreach($quiz->questions->sortBy('position') as $index => $question)
-                    <div class="question" data-question-id="{{ $question->id }}" style="display: none;">
-                        <p>{{ $question->question }}</p>
+                    <div class="question border rounded-lg p-4 mt-4" data-question-id="{{ $question->id }}" style="display: none;">
+                        <div class="flex justify-between">    
+                            <p>{{ $question->question }}</p>
+                            <p>{{ $index + 1 }} / {{ count($quiz->questions) }}</p>
+                        </div>
                         @if($question->image_link)
                             <img src="{{ $question->image_link }}" alt="Question Image" class="mt-2 mb-4 h-32 object-cover">
                         @endif

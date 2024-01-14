@@ -1,63 +1,71 @@
-<html>
-    <body>
-        
-        <div class="container">
-            <h2>Create a New Question</h2>
+{{-- resources/views/questions/create.blade.php --}}
 
-            @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Create a New Question') }}
+        </h2>
+    </x-slot>
+
+    <div class="py-6">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 bg-white border-b border-gray-200">
+                    @if ($errors->any())
+                    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                        <strong class="font-bold">Whoops!</strong>
+                        <span class="block sm:inline">There were some problems with your input.</span>
+                        <ul class="mt-3 list-disc list-inside text-sm text-red-600">
+                            @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    @endif
+
+                    <form action="{{ route('questions.store') }}" method="POST" class="mt-4">
+                        @csrf
+                        @method('POST')
+
+                        <div class="mb-4">
+                            <label for="quiz_id" class="block text-gray-700 text-sm font-bold mb-2">Select Quiz:</label>
+                            <select id="quiz_id" name="quiz_id" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                                @foreach($quizzes as $quiz)
+                                <option value="{{ $quiz->id }}">{{ $quiz->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="question" class="block text-gray-700 text-sm font-bold mb-2">Question:</label>
+                            <input type="text" id="question" name="question" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="image_link" class="block text-gray-700 text-sm font-bold mb-2">Image Link:</label>
+                            <input type="text" id="image_link" name="image_link" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="position" class="block text-gray-700 text-sm font-bold mb-2">Position:</label>
+                            <input type="number" id="position" name="position" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="block text-gray-700 text-sm font-bold mb-2">Optional Answers:</label>
+                            @for ($i = 0; $i < 4; $i++)
+                            <input type="text" name="options[]" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-2 leading-tight focus:outline-none focus:shadow-outline">
+                            @endfor
+                        </div>
+                        <div class="mb-4">
+                            <label for="correct" class="block text-gray-700 text-sm font-bold mb-2">Correct Answer:</label>
+                            <input type="text" id="correct" name="correct" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                        </div>
+
+                        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Create Question</button>
+                    </form>
+                </div>
             </div>
-            @endif
-
-            
-            <form action="{{ route('questions.store') }}" method="POST" enctype="multipart/form-data">
-                @csrf
-                @method('POST')
-
-                <div class="form-group">
-                    <label for="quiz_id">Select Quiz:</label>
-                    <select class="form-control" id="quiz_id" name="quiz_id">
-                        @foreach($quizzes as $quiz)
-                        <option value="{{ $quiz->id }}">{{ $quiz->name }}</option>
-                        @endforeach
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="question">Question:</label>
-                    <input type="text" class="form-control" id="question" name="question" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="image_link">Image Link:</label>
-                    <input type="text" class="form-control" id="image_link" name="image_link">
-                </div>
-
-                <div class="form-group">
-                    <label for="position">Position:</label>
-                    <input type="text" class="form-control" id="position" name="position">
-                </div>
-
-                <div class="form-group">
-                    <label>Optional Answers:</label>
-                    <input type="text" class="form-control mb-2" name="options[]" required>
-                    <input type="text" class="form-control mb-2" name="options[]" required>
-                    <input type="text" class="form-control mb-2" name="options[]" required>
-                    <input type="text" class="form-control mb-2" name="options[]" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="correct">Correct Answer:</label>
-                    <input type="text" class="form-control" id="correct" name="correct" required>
-                </div>
-
-                <button type="submit" class="btn btn-primary">Create Question</button>
-            </form>
         </div>
-    </body>
-</html>
+    </div>
+</x-app-layout>
