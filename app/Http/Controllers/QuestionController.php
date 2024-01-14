@@ -46,4 +46,17 @@ class QuestionController extends Controller
 
         return view('question.index', compact('questions'));
     }
+
+    public function destroy($id)
+    {
+        $question = question::findOrFail($id);
+        
+        if (auth()->id() !== $question->quiz->author_id) {
+            return redirect()->route('questions.index')->with('error', 'Unauthorized action.');
+        }
+
+        $question->delete();
+
+        return redirect()->route('questions.index')->with('success', 'Question deleted successfully.');
+    }
 }

@@ -18,6 +18,21 @@
                                 <img src="{{ $question->image_link }}" alt="Question Image" class="mt-2 rounded w-full h-32 object-cover">
                             @endif
                             <div class="text-sm text-gray-600">Position: {{ $question->position }}</div>
+
+                            @if(auth()->id() == $question->quiz->author_id)
+                            <div class="inline-block">
+                                <a href="{{ route('questions.edit', $question->id) }}" class="mt-2 p-2 bg-blue-500 text-white rounded hover:bg-blue-700">Edit</a>
+                            </div>
+                            @endif
+
+                            @if(auth()->id() == $question->quiz->author_id)
+                            <form action="{{ route('questions.destroy', $question->id) }}" method="POST"  class="inline-block ml-2">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="mt-2 p-2 bg-red-500 text-white rounded hover:bg-red-700">Delete</button>
+                            </form>
+                            @endif
+
                         </div>
                         @endforeach
                     </div>
