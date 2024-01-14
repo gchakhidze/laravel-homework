@@ -26,7 +26,7 @@
                             @endif
 
                             @if(auth()->id() == $question->quiz->author_id)
-                            <form action="{{ route('questions.destroy', $question->id) }}" method="POST"  class="inline-block ml-2">
+                            <form action="{{ route('questions.destroy', $question->id) }}" method="POST"  class="inline-block">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="mt-2 p-2 bg-red-500 text-white rounded hover:bg-red-700">Delete</button>

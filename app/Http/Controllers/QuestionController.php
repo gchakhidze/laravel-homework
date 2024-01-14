@@ -42,7 +42,13 @@ class QuestionController extends Controller
 
     public function index()
     {
-        $questions = Question::with('quiz')->get();
+        if (auth()->id() == 1) {
+            $questions = Question::with('quiz')->get();
+        } else {
+            $questions = Question::whereHas('quiz', function ($query) {
+                $query->where('published', 1);
+            })->with('quiz')->get();
+        }
 
         return view('question.index', compact('questions'));
     }
@@ -62,7 +68,7 @@ class QuestionController extends Controller
 
     public function edit(string $id){
         $question = Question::findOrFail($id);
-        $quizzes = Quiz::all();
+        $quizzes = Quiz::where('author_id', Auth::id())->get();
 
         return view('question.edit', compact('question', 'quizzes'));
     }

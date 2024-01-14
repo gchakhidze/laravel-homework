@@ -40,29 +40,29 @@
 
                         <div class="mb-4">
                             <label for="question" class="block text-gray-700 text-sm font-bold mb-2">Question:</label>
-                            <input type="text" id="question" name="question" value="{{ $question->question }}" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                            <input required type="text" id="question" name="question" value="{{ $question->question }}"  class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                         </div>
 
                         <div class="mb-4">
                             <label for="image_link" class="block text-gray-700 text-sm font-bold mb-2">Image Link:</label>
-                            <input type="text" id="image_link" name="image_link" value="{{ $question->image_link }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                            <input required type="text" id="image_link" name="image_link" value="{{ $question->image_link }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                         </div>
 
                         <div class="mb-4">
                             <label for="position" class="block text-gray-700 text-sm font-bold mb-2">Position:</label>
-                            <input type="number" id="position" name="position" value="{{ $question->position }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                            <input required type="number" id="position" name="position" value="{{ $question->position }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                         </div>
 
                         <div class="mb-4">
                             <label class="block text-gray-700 text-sm font-bold mb-2">Optional Answers:</label>
                             @for ($i = 0; $i < 4; $i++)
-                            <input type="text" name="options[]" value="{{ json_decode($question->options)[$i] }}" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-2 leading-tight focus:outline-none focus:shadow-outline">
+                            <input required type="text" name="options[]" value="{{ json_decode($question->options)[$i] }}"  class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-2 leading-tight focus:outline-none focus:shadow-outline">
                             @endfor
                         </div>
 
                         <div class="mb-4">
                             <label for="correct" class="block text-gray-700 text-sm font-bold mb-2">Correct:</label>
-                            <input type="text" id="correct" name="correct" value="{{ $question->correct }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                            <input required type="text" id="correct" name="correct" value="{{ $question->correct }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                         </div>
 
                         <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Update Question</button>

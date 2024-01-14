@@ -36,8 +36,14 @@ class QuizController extends Controller
 
     public function update(Request $request, Quiz $quiz)
     {
-        $quiz->fill($request->post())->save();
-        return redirect()->route('quizzes.index');
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'main_image_link' => 'nullable|url',
+            'description' => 'nullable|string',
+        ]);
+
+        $quiz->fill($validatedData)->save();
+        return redirect()->route('quizzes.index')->with('success', 'Quiz updated successfully.');
     }
 
     public function store(Request $request)
