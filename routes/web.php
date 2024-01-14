@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\QuizController;
+use App\Http\Controllers\QuestionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,6 +19,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::resource('/quizzes', QuizController::class);
+Route::resource('/questions', QuestionController::class);
+
+Route::patch('/quizzes/{quiz}/togglePublish', [QuizController::class, 'togglePublish'])->name('quizzes.togglePublish');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
