@@ -30,7 +30,7 @@ class QuestionController extends Controller
             'position' => $validatedData['position'],
         ]);
 
-        return redirect()->route('quizzes.index')->with('success', 'question created successfully.');
+        return redirect()->route('questions.index')->with('success', 'question created successfully.');
     }
 
     public function create()
@@ -58,5 +58,38 @@ class QuestionController extends Controller
         $question->delete();
 
         return redirect()->route('questions.index')->with('success', 'Question deleted successfully.');
+    }
+
+    public function edit(string $id){
+        $question = Question::findOrFail($id);
+        $quizzes = Quiz::all();
+
+        return view('question.edit', compact('question', 'quizzes'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $validatedData = $request->validate([
+            'quiz_id' => 'required|exists:quizzes,id',
+            'question' => 'required|string|max:255',
+            'image_link' => 'nullable|url',
+            'options' => 'required|array|size:4',
+            'options.*' => 'required|string|max:255',
+            'correct' => 'required|string|max:255',
+            'position' => 'required|integer|min:1',
+        ]);
+
+        $question = Question::findOrFail($id);
+
+        $question->update([
+            'quiz_id' => $validatedData['quiz_id'],
+            'question' => $validatedData['question'],
+            'image_link' => $validatedData['image_link'],
+            'options' => json_encode($validatedData['options']),
+            'correct' => $validatedData['correct'],
+            'position' => $validatedData['position'],
+        ]);
+
+        return redirect()->route('questions.index')->with('success', 'Question updated successfully.');
     }
 }
