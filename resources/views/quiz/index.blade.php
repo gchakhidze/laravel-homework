@@ -17,21 +17,27 @@
                             <div class="text-sm text-gray-600">Questions: {{ $quiz->questions_count }}</div>
                             <img src="{{ $quiz->main_image_link }}" alt="quiz" class="mt-2 rounded w-full h-32 object-cover">
 
-                            @if(auth()->check() && auth()->id() == 1)
-                            <form action="{{ route('quizzes.togglePublish', $quiz->id) }}" method="POST" class="inline-block">
+                            @if(auth()->id() == $quiz->author_id)
+                            <div class="inline-block">
+                                <a href="{{ route('quizzes.edit', $quiz->id) }}" class="mt-2 p-2 bg-blue-500 text-white rounded hover:bg-blue-700">Edit</a>
+                            </div>
+                            @endif
+
+                            @if(auth()->id() == $quiz->author_id)
+                            <form action="{{ route('quizzes.destroy', $quiz->id) }}" method="POST"  class="inline-block ml-2">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="mt-2 p-2 bg-red-500 text-white rounded hover:bg-red-700">Delete</button>
+                            </form>
+                            @endif
+
+                            @if(auth()->id() == 1)
+                            <form action="{{ route('quizzes.togglePublish', $quiz->id) }}" method="POST" class="inline-block ml-2">
                                 @csrf
                                 @method('PATCH')
                                 <button type="submit" class="mt-2 p-2 bg-green-500 text-white rounded hover:bg-green-700">
                                     {{ $quiz->published ? 'Unpublish' : 'Publish' }}
                                 </button>
-                            </form>
-                            @endif
-
-                            @if(auth()->check() && auth()->id() == $quiz->author_id)
-                            <form action="{{ route('quizzes.destroy', $quiz->id) }}" method="POST"  class="inline-block ml-2">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="mt-2 p-2 bg-red-500 text-white rounded hover:bg-red-700">Delete</button>
                             </form>
                             @endif
                         </div>

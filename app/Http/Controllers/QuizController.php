@@ -26,7 +26,12 @@ class QuizController extends Controller
                 ->orderBy('created_at', 'desc');
         }])->findOrFail($id);
 
-    return view('quiz.show', compact('quiz'));
+        return view('quiz.show', compact('quiz'));
+    }
+
+    public function edit(string $id){
+        $quiz = Quiz::findOrFail($id);
+        return view('quiz.edit', compact('quiz'));
     }
 
     public function update(Request $request, Quiz $quiz)
